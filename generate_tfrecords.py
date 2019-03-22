@@ -83,7 +83,7 @@ if __name__ == '__main__':
       help='File which contains image names and their corresponding lables.')
   parser.add_argument(
       '--seq-length',
-      type=int
+      type=int,
       default=4,
       help='Sequence length.')
   parser.add_argument(
