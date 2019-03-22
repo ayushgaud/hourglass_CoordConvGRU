@@ -7,8 +7,8 @@
 
 #### Annotations file format:  
 ```
-seq1_image1.png x1 y1 x2 y2 ... xM yM seq1_image2.png x1 y1 x2 y2 ... xM yM ... seq1_imageN.png x1 y1 x2 y2 ... xM yM
-seq1_image1.png x1 y1 x2 y2 ... xM yM seq1_image2.png x1 y1 x2 y2 ... xM yM ... seq1_imageN.png x1 y1 x2 y2 ... xM yM
+seq1_frame1.png x1 y1 x2 y2 ... xM yM seq1_frame2.png x1 y1 x2 y2 ... xM yM ... seq1_frameN.png x1 y1 x2 y2 ... xM yM
+seq2_frame1.png x1 y1 x2 y2 ... xM yM seq2_frame2.png x1 y1 x2 y2 ... xM yM ... seq2_frameN.png x1 y1 x2 y2 ... xM yM
 .
 .
 .
