@@ -1,5 +1,5 @@
 """
-Generates tf.train.Example protos and writes them to TFRecord files from the
+Generates tf.train.Example protos and writes them to TFRecord files
 """
 
 import argparse
