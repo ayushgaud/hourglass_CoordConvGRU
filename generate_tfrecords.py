@@ -25,7 +25,7 @@ def _int64_feature(value):
 def _bytes_feature(value):
   return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
-def convert_to_tfrecord(input_file, output_file, data_dir, seq_length):
+def convert_to_tfrecord(input_file, output_file, data_dir, seq_length, num_keypoints):
   """Converts a file to TFRecords."""
   train_output_file = 'train_' + output_file
   eval_output_file = 'eval_' + output_file
@@ -41,14 +41,10 @@ def convert_to_tfrecord(input_file, output_file, data_dir, seq_length):
       features = {}
       for j in range(seq_length):
         img = open_img(re.sub('_s00','_s'+str(j).zfill(2),img_name))
-        data = sio.loadmat(re.sub('_s00','_s'+str(j).zfill(2),img_name[:-3]+'mat'))
-        weights = data['vis_idx']
-        depth = data['resized_depth_img']
-        joints = list(map(int,line[(j * 77) + 5:(j * 77) + 77]))
+        joints = list(map(int,line[(j * (num_keypoints*2 + 1)) + 1:(j * (num_keypoints*2 + 1)) + num_keypoints*2 + 1]))
+        
         features['image_' + str(j)] = _bytes_feature(img.tostring())
         features['joints_' + str(j)] = _int64_feature(joints)
-        features['occlusion_' + str(j)] = _int64_feature(list(weights))
-        features['depth_' + str(j)] = _bytes_feature(depth.tostring())
 
       example = tf.train.Example(features=tf.train.Features(
           feature=features))
@@ -60,7 +56,7 @@ def convert_to_tfrecord(input_file, output_file, data_dir, seq_length):
         eval_writer.write(example.SerializeToString())
 
 
-def main(data_dir,input_file,seq_length):
+def main(data_dir,input_file,seq_length,num_keypoints):
   
   output_file = input_file[:-3] + 'tfrecords'
   try:
@@ -68,7 +64,7 @@ def main(data_dir,input_file,seq_length):
   except OSError:
     pass
     # Convert to tf.train.Example and write the to TFRecords.
-  convert_to_tfrecord(input_file, output_file, data_dir, seq_length)
+  convert_to_tfrecord(input_file, output_file, data_dir, seq_length, num_keypoints)
   print('Done!')
 
 
@@ -87,8 +83,13 @@ if __name__ == '__main__':
       help='File which contains image names and their corresponding lables.')
   parser.add_argument(
       '--seq-length',
-      type=int,
+      type=int
       default=4,
       help='Sequence length.')
+  parser.add_argument(
+      '--num-keypoints',
+      type=int,
+      default=36,
+      help='Total number of annotated keypoints.')
   args = parser.parse_args()
-  main(args.data_dir, args.input_file, args.seq_length)
+  main(args.data_dir, args.input_file, args.seq_length, args.num_keypoints)
