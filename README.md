@@ -29,4 +29,4 @@ It will use **train.tfrecords** and **eval.tfrecords** files in the tfrecord_dir
 `python hg_main.py --data-dir='tfrecord_dir' --job-dir='checkpoint_dir' --mode='test' --eval-steps=1000`
 
 ### Project Page
-[https://github.com/ayushgaud/Stacked_HG_CoordConvGRU/blob/master/index.md](https://github.com/ayushgaud/Stacked_HG_CoordConvGRU)
+[https://github.com/ayushgaud/Stacked_HG_CoordConvGRU](https://github.com/ayushgaud/Stacked_HG_CoordConvGRU/blob/master/index.md)
