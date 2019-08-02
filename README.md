@@ -3,7 +3,7 @@
 
 ## Usage
 
-### Generating TFRecrods
+### Generating TFRecords
 
 #### Annotations file format:  
 ```
